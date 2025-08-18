@@ -10,7 +10,7 @@ namespace ProjectTracker
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
 
-           builder.Services.AddSession();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -53,5 +53,5 @@ namespace ProjectTracker
             app.Run();
         }
     }
-    }
 }
+
