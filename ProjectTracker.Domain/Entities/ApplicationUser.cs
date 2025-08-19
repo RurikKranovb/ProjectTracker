@@ -1,8 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Identity;
-using ProjectTracker.Domain.Entities;
-
-namespace ProjectTracker.Models
+﻿namespace ProjectTracker.Domain.Entities
 {
     //public class ApplicationUser : IdentityUser
     //{
