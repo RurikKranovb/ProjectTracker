@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ProjectTracker.DAL.Context;
+
 namespace ProjectTracker
 {
     public class Program
@@ -5,6 +8,11 @@ namespace ProjectTracker
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ProjectTrackerDataBase>(opt =>
+                opt.UseSqlServer(connectionString));
 
             // Add services to the container.
             builder.Services.AddRazorPages();
