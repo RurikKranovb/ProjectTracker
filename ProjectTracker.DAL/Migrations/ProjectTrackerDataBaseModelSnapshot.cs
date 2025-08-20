@@ -68,10 +68,10 @@ namespace ProjectTracker.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentId")
+                    b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<int>("Priority")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -79,7 +79,7 @@ namespace ProjectTracker.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Tasks");
                 });
@@ -88,7 +88,7 @@ namespace ProjectTracker.DAL.Migrations
                 {
                     b.HasOne("ProjectTracker.Domain.Entities.Project", "ParentProject")
                         .WithMany("ProjectTasks")
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("ParentProject");
                 });

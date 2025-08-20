@@ -58,7 +58,7 @@ namespace ProjectTracker.Data
             new ProjectTask()
             {
                 Id = 1,
-                ParentId = 1,
+                ProjectId = 1,
                 Deadline = new DateTime(2016, 7, 23),
                 Name = "Оправисть заказчику",
                 Description = "С богом",
@@ -69,7 +69,7 @@ namespace ProjectTracker.Data
             new ProjectTask()
             {
                 Id = 2,
-                ParentId = 2,
+                ProjectId = 2,
                 Deadline = new DateTime(2026, 7, 23),
                 Name = "Реализовать тест по доброте",
                 Description = "Тест по определению на сколько ты добрый",
@@ -80,7 +80,7 @@ namespace ProjectTracker.Data
             new ProjectTask()
             {
                 Id = 3,
-                ParentId = 3,
+                ProjectId = 3,
                 Deadline = new DateTime(2025, 12, 23),
                 Name = "Доработать режим администратора",
                 Description = "Вкладки: Редактировать: изменить стиль на что-то. ",
@@ -91,7 +91,7 @@ namespace ProjectTracker.Data
             new ProjectTask()
             {
                 Id = 4,
-                ParentId = 2,
+                ProjectId = 2,
                 Deadline = new DateTime(2027, 12, 23),
                 Name = "Методики скорочтения",
                 Description = "Сделать таблицу методик",
@@ -103,7 +103,7 @@ namespace ProjectTracker.Data
             new ProjectTask()
             {
                 Id = 5,
-                ParentId = 2,
+                ProjectId = 2,
                 Deadline = new DateTime(2025, 11, 20),
                 Name = "Методики скорочтения",
                 Description = "Сделать таблицу методик",
