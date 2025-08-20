@@ -12,8 +12,8 @@ using ProjectTracker.DAL.Context;
 namespace ProjectTracker.DAL.Migrations
 {
     [DbContext(typeof(ProjectTrackerDataBase))]
-    [Migration("20250819152235_init")]
-    partial class init
+    [Migration("20250820154057_AddEntity")]
+    partial class AddEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,10 +71,10 @@ namespace ProjectTracker.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Priority")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int>("Priority")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -82,20 +82,23 @@ namespace ProjectTracker.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("ProjectTracker.Domain.Entities.ProjectTask", b =>
                 {
-                    b.HasOne("ProjectTracker.Domain.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ProjectTracker.Domain.Entities.Project", "ParentProject")
+                        .WithMany("ProjectTasks")
+                        .HasForeignKey("ParentId");
 
-                    b.Navigation("Project");
+                    b.Navigation("ParentProject");
+                });
+
+            modelBuilder.Entity("ProjectTracker.Domain.Entities.Project", b =>
+                {
+                    b.Navigation("ProjectTasks");
                 });
 #pragma warning restore 612, 618
         }

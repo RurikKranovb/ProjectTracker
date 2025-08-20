@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,9 @@ namespace ProjectTracker.Domain.Entities
         public DateTime StartDate { get; set; } = DateTime.Today;
 
         public ProjectStatus Status { get; set; } = ProjectStatus.Active;
+
+        public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
+
+
     }
 }

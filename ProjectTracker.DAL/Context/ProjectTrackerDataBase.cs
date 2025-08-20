@@ -14,16 +14,16 @@ namespace ProjectTracker.DAL.Context
 
         //public DbSet<ProjectMember> ProjectMembers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    base.OnModelCreating(builder);
 
-            //builder.Entity<ProjectMember>()
-            //    .HasKey(p => new
-            //    {
-            //        p.ProjectId,
-            //        p.UserId
-            //    });
-        }
+        //    //builder.Entity<ProjectMember>()
+        //    //    .HasKey(p => new
+        //    //    {
+        //    //        p.ProjectId,
+        //    //        p.UserId
+        //    //    });
+        //}
     }
 }
