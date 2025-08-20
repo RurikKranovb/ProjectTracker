@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectTracker.DAL.Context;
+using ProjectTracker.Data;
 
 namespace ProjectTracker
 {
@@ -12,7 +13,11 @@ namespace ProjectTracker
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ProjectTrackerDataBase>(opt =>
-                opt.UseSqlServer(connectionString));
+                opt.UseSqlServer(connectionString)
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors());
+
+            builder.Services.AddTransient<ProjectTrackerDbInitializer>();
 
             // Add services to the container.
             builder.Services.AddRazorPages();
@@ -47,7 +52,8 @@ namespace ProjectTracker
 
             using (var scope = app.Services.CreateScope())
             {
-
+                var serviceInitializer = scope.ServiceProvider.GetRequiredService<ProjectTrackerDbInitializer>();
+                serviceInitializer.Initialize();
             }
 
 
