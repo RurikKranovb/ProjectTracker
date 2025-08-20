@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using ProjectTracker.DAL.Context;
+using ProjectTracker.Data;
+
 namespace ProjectTracker
 {
     public class Program
@@ -6,11 +10,20 @@ namespace ProjectTracker
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ProjectTrackerDataBase>(opt =>
+                opt.UseSqlServer(connectionString)
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors());
+
+            builder.Services.AddTransient<ProjectTrackerDbInitializer>();
+
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
 
-           builder.Services.AddSession();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -39,7 +52,8 @@ namespace ProjectTracker
 
             using (var scope = app.Services.CreateScope())
             {
-
+                var serviceInitializer = scope.ServiceProvider.GetRequiredService<ProjectTrackerDbInitializer>();
+                serviceInitializer.Initialize();
             }
 
 
@@ -53,5 +67,5 @@ namespace ProjectTracker
             app.Run();
         }
     }
-    }
 }
+
