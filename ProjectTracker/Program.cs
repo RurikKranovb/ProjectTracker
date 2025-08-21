@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectTracker.DAL.Context;
 using ProjectTracker.Data;
+using ProjectTracker.Infrastructure.Interfaces;
+using ProjectTracker.Infrastructure.Services;
 
 namespace ProjectTracker
 {
@@ -22,6 +24,8 @@ namespace ProjectTracker
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IProjectData, SqlProjectData>();
 
             builder.Services.AddSession();
 
