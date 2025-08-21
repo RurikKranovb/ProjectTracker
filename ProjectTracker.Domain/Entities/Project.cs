@@ -18,7 +18,7 @@ namespace ProjectTracker.Domain.Entities
 
         public ProjectStatus Status { get; set; } = ProjectStatus.Active;
 
-        public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
+        //public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
 
 
     }

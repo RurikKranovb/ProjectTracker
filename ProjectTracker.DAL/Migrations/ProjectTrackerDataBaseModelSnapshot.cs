@@ -38,6 +38,9 @@ namespace ProjectTracker.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProjectTaskId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -45,6 +48,8 @@ namespace ProjectTracker.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectTaskId");
 
                     b.ToTable("Projects");
                 });
@@ -84,18 +89,25 @@ namespace ProjectTracker.DAL.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("ProjectTracker.Domain.Entities.Project", b =>
+                {
+                    b.HasOne("ProjectTracker.Domain.Entities.ProjectTask", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("ProjectTaskId");
+                });
+
             modelBuilder.Entity("ProjectTracker.Domain.Entities.ProjectTask", b =>
                 {
                     b.HasOne("ProjectTracker.Domain.Entities.Project", "ParentProject")
-                        .WithMany("ProjectTasks")
+                        .WithMany()
                         .HasForeignKey("ProjectId");
 
                     b.Navigation("ParentProject");
                 });
 
-            modelBuilder.Entity("ProjectTracker.Domain.Entities.Project", b =>
+            modelBuilder.Entity("ProjectTracker.Domain.Entities.ProjectTask", b =>
                 {
-                    b.Navigation("ProjectTasks");
+                    b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618
         }

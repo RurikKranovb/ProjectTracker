@@ -20,6 +20,7 @@ namespace ProjectTracker.DAL.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    ProjectTaskId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -51,14 +52,30 @@ namespace ProjectTracker.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Projects_ProjectTaskId",
+                table: "Projects",
+                column: "ProjectTaskId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tasks_ProjectId",
                 table: "Tasks",
                 column: "ProjectId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Projects_Tasks_ProjectTaskId",
+                table: "Projects",
+                column: "ProjectTaskId",
+                principalTable: "Tasks",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Projects_Tasks_ProjectTaskId",
+                table: "Projects");
+
             migrationBuilder.DropTable(
                 name: "Tasks");
 

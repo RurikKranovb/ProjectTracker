@@ -20,6 +20,9 @@ namespace ProjectTracker.Domain.Entities
         public virtual Project ParentProject { get; set; }
 
 
+        public virtual ICollection<Project> Projects { get; set; }
+
+
         //public string UserId { get; set; }
         //public ApplicationUser User { get; set; }
     }
