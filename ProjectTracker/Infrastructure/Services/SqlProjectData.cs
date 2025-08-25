@@ -22,5 +22,14 @@ namespace ProjectTracker.Infrastructure.Services
             return _db.Tasks.Include(task => task.Projects)
                 .AsEnumerable();
         }
+
+        public IEnumerable<ProjectTask> GetTasksById(int id)
+        {
+            IQueryable<ProjectTask> query = _db.Tasks;
+
+            query = query.Where(task => task.ProjectId == id);
+
+            return query.AsEnumerable();
+        }
     }
 }

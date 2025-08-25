@@ -18,5 +18,7 @@ namespace ProjectTracker.Infrastructure.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<ProjectTask> GetTasks();
+        IEnumerable<ProjectTask> GetTasksById(int id);
+
     }
 }

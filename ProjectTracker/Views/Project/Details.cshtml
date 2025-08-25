@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TaskViewModel>
+
+@{
+    ViewBag.Title = "Проект #" + Model.FirstOrDefault(model => model.ProjectId != 0)!.ProjectId;
+}
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3>
+    <hr/>
+    @foreach (var item in Model)
+    {
+        <p>@item.Name</p>
+        <p>@item.Description</p>
+    }
+  
+</div>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectTracker.Infrastructure.Interfaces;
+using ProjectTracker.Infrastructure.Mapping;
 
 namespace ProjectTracker.Controllers
 {
@@ -11,9 +12,16 @@ namespace ProjectTracker.Controllers
 
         public IActionResult Index()
         {
-            var project = _projectData.GetProjects();
+            var ss = _projectData.GetProjects().Select(project => project.ToView()).ToList();
 
-            return View();
+            return View(ss);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var project = _projectData.GetTasksById(id).Select(task => task.ToView()).ToList();
+
+            return View(project);
         }
     }
 }
