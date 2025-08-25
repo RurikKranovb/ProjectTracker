@@ -14,6 +14,6 @@ namespace ProjectTracker.Domain.Entities.Base.Interface
         /// <summary>
         /// Описание
         /// </summary>
-        string Description { get; set; }
+        string? Description { get; set; }
     }
 }
