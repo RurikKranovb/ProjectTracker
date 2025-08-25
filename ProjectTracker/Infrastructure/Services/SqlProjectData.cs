@@ -13,7 +13,7 @@ namespace ProjectTracker.Infrastructure.Services
 
         public IEnumerable<Project> GetProjects()
         {
-            return _db.Projects.Include(project => project)
+            return _db.Projects.Select(project => project)
                 .AsEnumerable();
         }
 
