@@ -10,6 +10,9 @@ namespace ProjectTracker.Infrastructure.Mapping
             Id = p.Id,
             Name = p.Name,
             Description = p.Description,
+            StartDate = p.StartDate,
+            Status = p.Status,
+            
         };
 
         public static IEnumerable<ProjectViewModel> ToView(this IEnumerable<Project> p) => p.Select(ToView);

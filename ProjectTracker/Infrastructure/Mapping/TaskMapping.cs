@@ -10,7 +10,10 @@ namespace ProjectTracker.Infrastructure.Mapping
             Id = p.Id,
             Name = p.Name,
             Description = p.Description,
-            ProjectId = p.ProjectId
+            ProjectId = p.ProjectId,
+            Status = p.Status,
+            Deadline = p.Deadline,
+            Priority = p.Priority,
         };
 
         public static IEnumerable<TaskViewModel> ToView(this IEnumerable<ProjectTask> p) => p.Select(ToView);
