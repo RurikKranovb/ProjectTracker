@@ -25,6 +25,7 @@ namespace ProjectTracker
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<IProjectService, ProjectService>();
             builder.Services.AddScoped<IProjectData, SqlProjectData>();
 
             builder.Services.AddSession();
