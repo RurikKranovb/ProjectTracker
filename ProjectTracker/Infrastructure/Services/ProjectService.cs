@@ -14,22 +14,58 @@ namespace ProjectTracker.Infrastructure.Services
         {
             _db = db;
         }
+
+        public Project GetById(int? id)
+        {
+            return _db.Projects.FirstOrDefault(p => p.Id == id);
+        }
+
         public void Add(Project project)
+        {
+            var item = new Project()
+            {
+                Id = GetId(_db),
+                Name = project.Name,
+                Status = project.Status = ProjectStatus.Active,
+                Description = project.Description,
+                StartDate = project.StartDate = DateTime.Now,
+            };
+
+            SaveChanges(item, false);
+
+        }
+
+        public void Edit(int id, Project project)
+        {
+            var item = GetById(id);
+
+
+            item.Name = project.Name;
+            item.Status = project.Status = ProjectStatus.Active;
+            item.StartDate = project.StartDate = DateTime.Today;
+            item.Description = project.Description;
+
+
+            SaveChanges(item, true);
+
+        }
+
+        private void SaveChanges(Project item, bool isUpdate)
         {
             using (var transaction = _db.Database.BeginTransaction())
             {
-                var item = new Project()
+                if (isUpdate)
                 {
-                    Id = GetId(_db),
-                    Name = project.Name,
-                    Status = project.Status = ProjectStatus.Active,
-                    Description = project.Description,
-                    StartDate = project.StartDate = DateTime.Now,
-                };
+                    _db.Projects.Update(item);
 
-                _db.Projects.Add(item);
+                }
+                else
+                {
+                    _db.Projects.Add(item);
 
-                 _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Projects] ON");
+                }
+
+                _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Projects] ON");
 
                 _db.SaveChanges();
 
@@ -39,14 +75,14 @@ namespace ProjectTracker.Infrastructure.Services
             }
         }
 
-        public void Edit(int id, Project project)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var item = GetById(id);
+
+            _db.Projects.Remove(item);
+
+            _db.SaveChanges();
+
         }
 
 

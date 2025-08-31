@@ -64,15 +64,55 @@ namespace ProjectTracker.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
-            return null;
+            if (id is null)
+                return View(new ProjectViewModel());
+
+            if (id < 0)
+                return BadRequest();
+
+            var item = _projectService.GetById(id);
+
+            return View(item.ToView());
         }
 
+        [HttpPost]
+        public IActionResult Edit(int id, ProjectViewModel viewModel)
+        {
+            if (viewModel is null)
+            {
+                throw new ArgumentNullException(nameof(viewModel));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            _projectService.Edit(id, viewModel.FromView());
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id <= 0)
+                return BadRequest();
+
+            var item = _projectService.GetById(id);
+
+            if (item is null)
+                return NotFound();
+
+            return View(item.ToView());
+        }
+
+        [HttpPost]
         public IActionResult Delete(int id)
         {
-            return null;
+            _projectService.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }

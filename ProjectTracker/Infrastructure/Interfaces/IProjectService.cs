@@ -5,6 +5,8 @@ namespace ProjectTracker.Infrastructure.Interfaces
 {
     public interface IProjectService
     {
+        public Project GetById(int? id);
+
         void Add(Project project);
 
         void Edit(int id, Project project);
