@@ -12,7 +12,6 @@ namespace ProjectTracker
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ProjectTrackerDataBase>(opt =>
                 opt.UseSqlServer(connectionString)
@@ -25,6 +24,7 @@ namespace ProjectTracker
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<ITaskService, TaskService>();
             builder.Services.AddScoped<IProjectService, ProjectService>();
             builder.Services.AddScoped<IProjectData, SqlProjectData>();
 

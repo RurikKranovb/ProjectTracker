@@ -17,5 +17,16 @@ namespace ProjectTracker.Infrastructure.Mapping
         };
 
         public static IEnumerable<TaskViewModel> ToView(this IEnumerable<ProjectTask> p) => p.Select(ToView);
+
+        public static ProjectTask FromView(this TaskViewModel p) => new ()
+        {
+            Id = p.Id,
+            Status = p.Status,
+            Name = p.Name,
+            Description = p.Description,
+            ProjectId = p.ProjectId,
+            Deadline = p.Deadline,
+            Priority = p.Priority,
+        };
     }
 }
