@@ -11,7 +11,7 @@ namespace ProjectTracker.Domain.Entities.Base
     public abstract class NameEntity : BaseEntity, INamedEntity
     {
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
 
     }

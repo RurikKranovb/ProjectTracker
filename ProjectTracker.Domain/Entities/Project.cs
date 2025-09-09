@@ -12,7 +12,7 @@ namespace ProjectTracker.Domain.Entities
 {
     public class Project : NameEntity, IDescriptionEntity
     {
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public DateTime StartDate { get; set; } = DateTime.Today;
 

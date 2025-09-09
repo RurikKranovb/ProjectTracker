@@ -13,14 +13,14 @@ namespace ProjectTracker.Data
 
         private async Task InitializeAsync()
         {
-            var db  = _db.Database;
+            var db = _db.Database;
 
             await db.MigrateAsync().ConfigureAwait(false);
 
             if (await _db.Projects.AnyAsync())
                 return;
 
-          await  using (var transaction = await db.BeginTransactionAsync().ConfigureAwait(false))
+            await using (var transaction = await db.BeginTransactionAsync().ConfigureAwait(false))
             {
                 await _db.Projects.AddRangeAsync(TestData.Projects).ConfigureAwait(false);
 

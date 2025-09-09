@@ -69,7 +69,7 @@ namespace ProjectTracker.Data
             new ProjectTask()
             {
                 Id = 2,
-                ProjectId = 2,
+                ProjectId = 3,
                 Deadline = new DateTime(2026, 7, 23),
                 Name = "Реализовать тест по доброте",
                 Description = "Тест по определению на сколько ты добрый",

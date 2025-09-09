@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProjectViewModel>
+
+@{
+    ViewBag.Title = "Проекты";
+}
+
+<div class="container mt-4">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td>@project.Id</td>
+                    <td>@project.Name</td>
+                    <td>@project.Description</td>
+                    <td>
+                        <a asp-controller="Project" asp-action="Details" asp-route-id="@project.Id">Открыть</a>
+                    </td>
+
+                    <td>
+                        <a asp-controller="Project" asp-action="Edit" asp-route-id="@project.Id">Редактировать</a>
+                    </td>
+
+                    <td>
+                        <a asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
