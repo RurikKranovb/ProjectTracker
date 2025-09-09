@@ -6,32 +6,27 @@ using ProjectTracker.Infrastructure.Interfaces;
 
 namespace ProjectTracker.Infrastructure.Services
 {
-    public class ProjectService : IProjectService
+    public class ProjectService : BaseService<Project>
     {
-        private readonly ProjectTrackerDataBase _db;
+        private const string Projects = "Projects";
 
-        public ProjectService(ProjectTrackerDataBase db)
-        {
-            _db = db;
-        }
+        public ProjectService(ProjectTrackerDataBase db) : base(db){}
 
-        public Project GetById(int? id)
-        {
-            return _db.Projects.FirstOrDefault(p => p.Id == id);
-        }
+
+        protected override DbSet<Project> DbSet => _db.Projects;
 
         public void Add(Project project)
         {
             var item = new Project()
             {
-                Id = GetId(_db),
+                Id = GetId(),
                 Name = project.Name,
                 Status = project.Status = ProjectStatus.Active,
                 Description = project.Description,
                 StartDate = project.StartDate = DateTime.Now,
             };
 
-            SaveChanges(item, false);
+            SaveChanges(item, false, Projects);
 
         }
 
@@ -46,65 +41,8 @@ namespace ProjectTracker.Infrastructure.Services
             item.Description = project.Description;
 
 
-            SaveChanges(item, true);
+            SaveChanges(item, true, Projects);
 
         }
-
-        private void SaveChanges(Project item, bool isUpdate)
-        {
-            using (var transaction = _db.Database.BeginTransaction())
-            {
-                if (isUpdate)
-                {
-                    _db.Projects.Update(item);
-
-                }
-                else
-                {
-                    _db.Projects.Add(item);
-
-                }
-
-                _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Projects] ON");
-
-                _db.SaveChanges();
-
-                _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Projects] OFF");
-
-                transaction.Commit();
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var item = GetById(id);
-
-            _db.Projects.Remove(item);
-
-            _db.SaveChanges();
-
-        }
-
-
-        private int GetId(ProjectTrackerDataBase db)
-        {
-            var usedIds = db.Projects
-                .OrderBy(p => p.Id)
-                .Select(p => p.Id)
-                .ToList();
-
-            int expectedId = 1;
-
-            foreach (var usedId in usedIds)
-            {
-                if (usedId > expectedId)
-                {
-                    return expectedId;
-                }
-                expectedId++;
-            }
-            return expectedId;
-        }
-
     }
 }

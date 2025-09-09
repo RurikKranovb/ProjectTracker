@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectTracker.Infrastructure.Interfaces;
 using ProjectTracker.Infrastructure.Mapping;
+using ProjectTracker.Infrastructure.Services;
 using ProjectTracker.ViewModels;
 using TaskStatus = ProjectTracker.Domain.Entities.Base.Tags.TaskStatus;
 
@@ -10,9 +11,9 @@ namespace ProjectTracker.Controllers
     public class ProjectController : Controller
     {
         private readonly IProjectData _projectData;
-        private readonly IProjectService _projectService;
+        private readonly ProjectService _projectService;
 
-        public ProjectController(IProjectData projectData, IProjectService projectService)
+        public ProjectController(IProjectData projectData, ProjectService projectService)
         {
             _projectData = projectData;
             _projectService = projectService;

@@ -10,9 +10,9 @@ namespace ProjectTracker.Controllers
     {
 
         private readonly IProjectData _projectData;
-        private readonly ITaskService _taskService;
+        private readonly TaskService _taskService;
 
-        public TaskController(IProjectData projectData, ITaskService taskService)
+        public TaskController(IProjectData projectData, TaskService taskService)
         {
             _projectData = projectData;
             _taskService = taskService;
